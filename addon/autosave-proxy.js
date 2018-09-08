@@ -62,7 +62,7 @@ AutosaveProxy.reopenClass({
 
   create: function(attrs, localOptions) {
     // Default library options
-    let options = Ember.copy(this.defaultOptions);
+    let options = Object.assign({}, this.defaultOptions);
 
     // Global custom config options
     setProperties(options, this.options);
