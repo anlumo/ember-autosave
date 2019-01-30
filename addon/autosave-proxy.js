@@ -1,5 +1,5 @@
 import { assert } from '@ember/debug';
-import EmberObject, { set, get } from '@ember/object';
+import EmberObject, { set, get, computed } from '@ember/object';
 
 // Store properties off the autosave object to avoid triggering unknownProperty
 // hooks and to avoid conflict with the developer-provided model object.
@@ -29,7 +29,12 @@ let AutosaveProxy = EmberObject.extend({
 
   willDestroy: function() {
     flushPendingSave(this);
-  }
+  },
+
+  content: computed(function() {
+    let privateProps = privateStore.get(this);
+    return privateProps.target;
+  }),
 });
 
 AutosaveProxy.reopenClass({
